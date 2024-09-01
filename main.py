@@ -2,7 +2,6 @@ import time
 import datetime
 import re
 from aiogram import Bot, types, Dispatcher
-# from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 import requests
@@ -11,17 +10,19 @@ from UserService import UserService
 from GoogleSheet import GoogleSheetService
 from OrderProduct import OrderProduct
 
-# bot = Dispatcher(Bot(token='6534722740:AAHN3stKJwCZmfGx2TrPrigynrOmHNTJVmk'))
-bot = Dispatcher(Bot(token='6946444897:AAHQYgMX0wZYC_bx72Mi5oWcCdJ9cj8PWMc')) #мой бот'
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+TOKEN = os.getenv('TOKEN')
+
+bot = Dispatcher(Bot(token=TOKEN)) 
 google_sheet_service = GoogleSheetService()
 user_service = UserService()
 
 
-
-
 @bot.message_handler(commands=["start"])
 async def help_command(message: types.Message):
-
 
     user_id = message.from_user.id
     user_session = user_service.get_user_session(user_id)
